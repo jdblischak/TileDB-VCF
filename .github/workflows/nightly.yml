@@ -32,7 +32,7 @@ jobs:
             -D TILEDB_WERROR=ON \
             -D TILEDB_SERIALIZATION=ON \
             -D CMAKE_BUILD_TYPE=Release
-          cmake --build build-libtiledb -j2 --config Release --target install
+          cmake --build build-libtiledb -j2 --config Release --target install-tiledb
       - name: Build libtiledbvcf
         run: |
           cmake -S TileDB-VCF -B build-libtiledbvcf \
