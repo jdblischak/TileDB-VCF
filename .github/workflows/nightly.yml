@@ -61,6 +61,7 @@ jobs:
           cmake --build build-libtiledbvcf --config Release --target install-libtiledbvcf
       - name: Build tiledbvcf-py
         run: |
+          set -x
           cd TileDB-VCF/apis/python
-          pip3 install --user pyarrow=11 wheel
+          pip3 install --user pyarrow==11 wheel
           python3 setup.py install --user --libtiledbvcf=$GITHUB_WORKSPACE/installed/
