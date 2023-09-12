@@ -42,7 +42,7 @@ jobs:
           set -x
           cmake -S TileDB -B build-libtiledb \
             -D CMAKE_BUILD_TYPE=Release \
-            -D CMAKE_INSTALL_PREFIX:PATH=installed/ \
+            -D CMAKE_INSTALL_PREFIX:PATH=$GITHUB_WORKSPACE/installed/ \
             -D TILEDB_WERROR=ON \
             -D TILEDB_SERIALIZATION=ON
           cmake --build build-libtiledb -j2 --config Release
@@ -52,7 +52,7 @@ jobs:
           set -x
           cmake -S TileDB-VCF/libtiledbvcf -B build-libtiledbvcf \
             -D CMAKE_BUILD_TYPE=Release \
-            -D CMAKE_INSTALL_PREFIX:PATH=installed/ \
+            -D CMAKE_INSTALL_PREFIX:PATH=$GITHUB_WORKSPACE/installed/ \
             -D OVERRIDE_INSTALL_PREFIX=OFF
           cmake --build build-libtiledbvcf -j2 --config Release
           cmake --build build-libtiledbvcf --config Release --target install-libtiledbvcf
@@ -60,4 +60,4 @@ jobs:
         run: |
           cd TileDB-VCF/apis/python
           pip install --user pyarrow wheel
-          python setup.py install --user --libtiledbvcf=installed/
+          python setup.py install --user --libtiledbvcf=$GITHUB_WORKSPACE/installed/
