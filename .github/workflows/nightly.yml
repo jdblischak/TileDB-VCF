@@ -20,6 +20,8 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
+    env:
+      PYARROW_VERSION: 3
     steps:
       - name: Clone TileDB
         uses: actions/checkout@v3
@@ -63,5 +65,5 @@ jobs:
         run: |
           set -x
           cd TileDB-VCF/apis/python
-          pip3 install --user pyarrow==11 wheel
+          pip3 install --user pyarrow==$PYARROW_VERSION wheel
           python3 setup.py install --user --libtiledbvcf=$GITHUB_WORKSPACE/installed/
