@@ -40,3 +40,7 @@ jobs:
             -D CMAKE_BUILD_TYPE=Release
           cmake --build build-libtiledbvcf -j2 --config Release
           cmake --build build-libtiledbvcf -j2 --config Release --target install-libtiledbvcf
+      - name: Build tiledbvcf-py
+        run: |
+          cd TileDB-VCF/apis/python
+          python setup.py install
