@@ -33,19 +33,21 @@ jobs:
           path: TileDB-VCF
       - name: Build libtiledb
         run: |
+          set -x
           cmake -S TileDB -B build-libtiledb \
             -D TILEDB_WERROR=ON \
             -D TILEDB_SERIALIZATION=ON \
             -D CMAKE_BUILD_TYPE=Release
           cmake --build build-libtiledb -j2 --config Release
-          cmake --build build-libtiledb -j2 --config Release --target install-tiledb
+          sudo cmake --build build-libtiledb -j2 --config Release --target install-tiledb
       - name: Build libtiledbvcf
         run: |
+          set -x
           cmake -S TileDB-VCF/libtiledbvcf -B build-libtiledbvcf \
             -D CMAKE_BUILD_TYPE=Release
           cmake --build build-libtiledbvcf -j2 --config Release
-          cmake --build build-libtiledbvcf -j2 --config Release --target install-libtiledbvcf
+          sudo cmake --build build-libtiledbvcf -j2 --config Release --target install-libtiledbvcf
       - name: Build tiledbvcf-py
         run: |
           cd TileDB-VCF/apis/python
-          python setup.py install
+          python setup.py install --user
