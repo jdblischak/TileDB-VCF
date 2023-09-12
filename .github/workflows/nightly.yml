@@ -41,7 +41,7 @@ jobs:
           cmake --build build-libtiledb -j2 --config Release --target install-tiledb
       - name: Build libtiledbvcf
         run: |
-          cmake -S TileDB-VCF -B build-libtiledbvcf \
+          cmake -S TileDB-VCF/libtiledbvcf -B build-libtiledbvcf \
             -D CMAKE_BUILD_TYPE=Release
           cmake --build build-libtiledbvcf -j2 --config Release
           cmake --build build-libtiledbvcf -j2 --config Release --target install-libtiledbvcf
