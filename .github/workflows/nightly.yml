@@ -31,23 +31,33 @@ jobs:
         uses: actions/checkout@v3
         with:
           path: TileDB-VCF
+      - name: Setup
+        run: |
+          mkdir installed
+      - name: Setup macOS
+        if: matrix.os == 'macos-latest'
+        run: brew install autoconf automake
       - name: Build libtiledb
         run: |
           set -x
           cmake -S TileDB -B build-libtiledb \
+            -D CMAKE_BUILD_TYPE=Release \
+            -D CMAKE_INSTALL_PREFIX:PATH=installed/ \
             -D TILEDB_WERROR=ON \
-            -D TILEDB_SERIALIZATION=ON \
-            -D CMAKE_BUILD_TYPE=Release
+            -D TILEDB_SERIALIZATION=ON
           cmake --build build-libtiledb -j2 --config Release
-          sudo cmake --build build-libtiledb -j2 --config Release --target install-tiledb
+          cmake --build build-libtiledb --config Release --target install-tiledb
       - name: Build libtiledbvcf
         run: |
           set -x
           cmake -S TileDB-VCF/libtiledbvcf -B build-libtiledbvcf \
-            -D CMAKE_BUILD_TYPE=Release
+            -D CMAKE_BUILD_TYPE=Release \
+            -D CMAKE_INSTALL_PREFIX:PATH=installed/ \
+            -D OVERRIDE_INSTALL_PREFIX=OFF
           cmake --build build-libtiledbvcf -j2 --config Release
-          sudo cmake --build build-libtiledbvcf -j2 --config Release --target install-libtiledbvcf
+          cmake --build build-libtiledbvcf --config Release --target install-libtiledbvcf
       - name: Build tiledbvcf-py
         run: |
           cd TileDB-VCF/apis/python
-          python setup.py install --user
+          pip install --user pyarrow wheel
+          python setup.py install --user --libtiledbvcf=installed/
