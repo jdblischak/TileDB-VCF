@@ -62,5 +62,5 @@ jobs:
       - name: Build tiledbvcf-py
         run: |
           cd TileDB-VCF/apis/python
-          pip3 install --user pyarrow wheel
+          pip3 install --user pyarrow=11 wheel
           python3 setup.py install --user --libtiledbvcf=$GITHUB_WORKSPACE/installed/
