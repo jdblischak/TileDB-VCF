@@ -36,7 +36,9 @@ jobs:
           mkdir installed
       - name: Setup macOS
         if: matrix.os == 'macos-latest'
-        run: brew install autoconf automake
+        run: |
+          # to build htslib from source
+          brew install autoconf automake
       - name: Build libtiledb
         run: |
           set -x
@@ -59,5 +61,5 @@ jobs:
       - name: Build tiledbvcf-py
         run: |
           cd TileDB-VCF/apis/python
-          pip install --user pyarrow wheel
-          python setup.py install --user --libtiledbvcf=$GITHUB_WORKSPACE/installed/
+          pip3 install --user pyarrow wheel
+          python3 setup.py install --user --libtiledbvcf=$GITHUB_WORKSPACE/installed/
