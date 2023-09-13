@@ -21,7 +21,7 @@ jobs:
       matrix:
         libtiledb_version: [release-2.16]
         #libtiledb_version: [release-2.16, dev]
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [macos-11, ubuntu-latest, windows-latest]
     env:
       PYARROW_VERSION: 10
     steps:
