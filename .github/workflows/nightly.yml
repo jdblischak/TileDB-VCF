@@ -39,6 +39,11 @@ jobs:
         run: |
           mkdir installed
           pip3 install --user pyarrow==$PYARROW_VERSION wheel
+      - name: Setup conda env
+        uses: mamba-org/setup-micromamba@v1
+        with:
+          environment-file: TileDB-VCF/apis/python/conda-env.yml
+          cache-environment: true
       - name: Setup macOS
         if: matrix.os == 'macos-latest'
         run: |
@@ -64,6 +69,8 @@ jobs:
           cmake --build build-libtiledbvcf -j2 --config Release
           cmake --build build-libtiledbvcf --config Release --target install-libtiledbvcf
       - name: Build tiledbvcf-py
+        # activate conda env to build Python package
+        shell: bash -l {0}
         run: |
           set -x
           cd TileDB-VCF/apis/python
