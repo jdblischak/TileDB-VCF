@@ -21,9 +21,7 @@ jobs:
       matrix:
         libtiledb_version: [release-2.16]
         #libtiledb_version: [release-2.16, dev]
-        os: [macos-11, ubuntu-latest, windows-latest]
-    env:
-      PYARROW_VERSION: 10
+        os: [macos-latest, ubuntu-latest, windows-latest]
     steps:
       - name: Clone TileDB
         uses: actions/checkout@v3
@@ -38,7 +36,6 @@ jobs:
       - name: Setup
         run: |
           mkdir installed
-          pip3 install --user pyarrow==$PYARROW_VERSION wheel
       - name: Setup conda env
         uses: mamba-org/setup-micromamba@v1
         with:
@@ -74,7 +71,7 @@ jobs:
         run: |
           set -x
           cd TileDB-VCF/apis/python
-          python3 setup.py install --user --libtiledbvcf=$GITHUB_WORKSPACE/installed/
+          python setup.py install --libtiledbvcf=$GITHUB_WORKSPACE/installed/
   issue:
     permissions:
       issues: write
