@@ -23,7 +23,7 @@ jobs:
         #libtiledb_version: [release-2.16, dev]
         os: [macos-latest, ubuntu-latest, windows-latest]
     env:
-      PYARROW_VERSION: 8
+      PYARROW_VERSION: 9
     steps:
       - name: Clone TileDB
         uses: actions/checkout@v3
