@@ -1,6 +1,7 @@
 name: unix-env
 channels:
   - conda-forge
+  - bioconda
   - nodefaults
 dependencies:
   # build libtiledbvcf

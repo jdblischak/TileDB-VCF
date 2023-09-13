@@ -36,6 +36,11 @@ jobs:
         with:
           environment-file: ci/gha-unix-env.yml
           cache-environment: true
+          condarc: |
+            channels:
+              - conda-forge
+              - bioconda
+            channel_priority: strict
       - name: Build libtiledb
         run: |
           cmake -S TileDB -B build-libtiledb \
