@@ -20,7 +20,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        libtiledb_version: [release-2.16, dev]
+        libtiledb_version: [release-2.16]
+        # libtiledb_version: [release-2.16, dev]
         os: [macos-latest, ubuntu-latest, windows-latest]
     steps:
       - name: Clone TileDB
@@ -73,6 +74,7 @@ jobs:
           python --version
           cd TileDB-VCF/apis/python
           python setup.py install --libtiledbvcf=$GITHUB_WORKSPACE/installed/
+          export PATH="$GITHUB_WORKSPACE/installed/bin:$PATH"
           python -c "import tiledbvcf; print(tiledbvcf.version)"
   issue:
     permissions:
