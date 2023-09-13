@@ -19,10 +19,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        libtiledb_version: [release-2.16, dev]
+        libtiledb_version: [release-2.16]
+        #libtiledb_version: [release-2.16, dev]
         os: [macos-latest, ubuntu-latest, windows-latest]
     env:
-      PYARROW_VERSION: 7
+      PYARROW_VERSION: 8
     steps:
       - name: Clone TileDB
         uses: actions/checkout@v3
@@ -37,6 +38,7 @@ jobs:
       - name: Setup
         run: |
           mkdir installed
+          pip3 install --user pyarrow==$PYARROW_VERSION wheel
       - name: Setup macOS
         if: matrix.os == 'macos-latest'
         run: |
@@ -65,7 +67,6 @@ jobs:
         run: |
           set -x
           cd TileDB-VCF/apis/python
-          pip3 install --user pyarrow==$PYARROW_VERSION wheel
           python3 setup.py install --user --libtiledbvcf=$GITHUB_WORKSPACE/installed/
   issue:
     permissions:
