@@ -28,7 +28,7 @@ jobs:
         with:
           repository: TileDB-Inc/TileDB
           ref: ${{ matrix.libtiledb_version }}
-          path: ${{ runner.temp }}/TileDB
+          path: TileDB
       - name: Clone TileDB-VCF
         uses: actions/checkout@v3
       - name: Setup conda env
@@ -38,7 +38,7 @@ jobs:
           cache-environment: true
       - name: Build libtiledb
         run: |
-          cmake -S $RUNNER_TEMP/TileDB -B build-libtiledb \
+          cmake -S TileDB -B build-libtiledb \
             -D CMAKE_BUILD_TYPE=Release \
             -D CMAKE_INSTALL_PREFIX:PATH=$CONDA_PREFIX \
             -D TILEDB_WERROR=ON \
@@ -77,7 +77,7 @@ jobs:
         with:
           repository: TileDB-Inc/TileDB
           ref: ${{ matrix.libtiledb_version }}
-          path: ${{ runner.temp }}/TileDB
+          path: TileDB
       - name: Clone TileDB-VCF
         uses: actions/checkout@v3
       - name: Install conda env
@@ -93,7 +93,7 @@ jobs:
             channel_priority: strict
       - name: Build libtiledb
         run: |
-          cmake -S %RUNNER_TEMP%\TileDB -B build-libtiledb ^
+          cmake -S TileDB -B build-libtiledb ^
             -D CMAKE_BUILD_TYPE=Release ^
             -D CMAKE_INSTALL_PREFIX:PATH=%CONDA_PREFIX%\Library ^
             -D TILEDB_WERROR=ON ^
