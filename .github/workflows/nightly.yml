@@ -11,7 +11,8 @@ on:
   workflow_dispatch:
 defaults:
   run:
-    shell: bash
+    # Use default bash (plus -x to echo commands)
+    shell: bash --noprofile --norc -eo pipefail -x {0}
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -57,20 +58,22 @@ jobs:
           cmake --build build-libtiledb --config Release --target install-tiledb
       - name: Build libtiledbvcf
         run: |
-          set -x
           cmake -S TileDB-VCF/libtiledbvcf -B build-libtiledbvcf \
             -D CMAKE_BUILD_TYPE=Release \
             -D CMAKE_INSTALL_PREFIX:PATH=$GITHUB_WORKSPACE/installed/ \
             -D OVERRIDE_INSTALL_PREFIX=OFF
           cmake --build build-libtiledbvcf -j2 --config Release
           cmake --build build-libtiledbvcf --config Release --target install-libtiledbvcf
+          $GITHUB_WORKSPACE/installed/bin/tiledbvcf version
       - name: Build tiledbvcf-py
         # activate conda env to build Python package
-        shell: bash -l {0}
+        shell: bash -elx {0}
         run: |
-          set -x
+          which python
+          python --version
           cd TileDB-VCF/apis/python
           python setup.py install --libtiledbvcf=$GITHUB_WORKSPACE/installed/
+          python -c "import tiledbvcf; print(tiledbvcf.version)"
   issue:
     permissions:
       issues: write
