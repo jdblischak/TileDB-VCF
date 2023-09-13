@@ -23,14 +23,14 @@ jobs:
       run:
         shell: bash -elo pipefail -x {0}
     steps:
+      - name: Clone TileDB-VCF
+        uses: actions/checkout@v3
       - name: Clone TileDB
         uses: actions/checkout@v3
         with:
           repository: TileDB-Inc/TileDB
           ref: ${{ matrix.libtiledb_version }}
           path: TileDB
-      - name: Clone TileDB-VCF
-        uses: actions/checkout@v3
       - name: Setup conda env
         uses: mamba-org/setup-micromamba@v1
         with:
@@ -63,7 +63,7 @@ jobs:
         run: |
           which python
           python --version
-          cd TileDB-VCF/apis/python
+          cd apis/python
           python setup.py install --libtiledbvcf=$CONDA_PREFIX
           python -c "import tiledbvcf; print(tiledbvcf.version)"
   windows:
@@ -77,14 +77,14 @@ jobs:
       run:
         shell: cmd /C CALL {0}
     steps:
+      - name: Clone TileDB-VCF
+        uses: actions/checkout@v3
       - name: Clone TileDB
         uses: actions/checkout@v3
         with:
           repository: TileDB-Inc/TileDB
           ref: ${{ matrix.libtiledb_version }}
           path: TileDB
-      - name: Clone TileDB-VCF
-        uses: actions/checkout@v3
       - name: Install conda env
         uses: mamba-org/setup-micromamba@v1
         with:
