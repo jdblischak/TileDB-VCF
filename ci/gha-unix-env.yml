@@ -1,0 +1,27 @@
+name: unix-env
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  # build libtiledbvcf
+  - cmake
+  - git
+  - htslib
+  - tiledb=2.15
+  - gcc
+  # build tiledbvcf-py
+  - numpy
+  - pandas<2.0
+  - pyarrow=9.0
+  - pybind11
+  - python
+  - rpdb
+  - setuptools
+  - setuptools_scm=6.0.1
+  - setuptools_scm_git_archive
+  - wheel
+  # test tiledbvcf-py
+  - dask
+  - fsspec<2023.3.0
+  - pytest
+  - tiledb-py
