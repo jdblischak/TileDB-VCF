@@ -6,10 +6,10 @@ channels:
 dependencies:
   # build libtiledbvcf
   - cmake
+  - cxx-compiler
   - git
   - htslib
   - tiledb=2.15
-  - gcc
   # build tiledbvcf-py
   - numpy
   - pandas<2.0
