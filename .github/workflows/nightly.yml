@@ -42,14 +42,7 @@ jobs:
               - bioconda
             channel_priority: strict
       - name: Build libtiledb
-        run: |
-          cmake -S TileDB -B build-libtiledb \
-            -D CMAKE_BUILD_TYPE=Release \
-            -D CMAKE_INSTALL_PREFIX:PATH=$CONDA_PREFIX \
-            -D TILEDB_WERROR=ON \
-            -D TILEDB_SERIALIZATION=ON
-          cmake --build build-libtiledb -j2 --config Release
-          cmake --build build-libtiledb --config Release --target install-tiledb
+        run: bash ci/build-libtiledb.sh
       - name: Build libtiledbvcf
         run: |
           cmake -S libtiledbvcf -B build-libtiledbvcf \
@@ -97,14 +90,7 @@ jobs:
               - tiledb
             channel_priority: strict
       - name: Build libtiledb
-        run: |
-          cmake -S TileDB -B build-libtiledb ^
-            -D CMAKE_BUILD_TYPE=Release ^
-            -D CMAKE_INSTALL_PREFIX:PATH=%CONDA_PREFIX%\Library ^
-            -D TILEDB_WERROR=ON ^
-            -D TILEDB_SERIALIZATION=ON
-          cmake --build build-libtiledb -j2 --config Release
-          cmake --build build-libtiledb --config Release --target install-tiledb
+        run: cmd /C CALL ci\build-libtiledb.bat
       - name: Build libtiledbvcf
         run: cmd /C CALL ci\build-libtiledbvcf.bat
       - name: libtiledbvcf version

@@ -4,6 +4,9 @@ channels:
   - bioconda
   - nodefaults
 dependencies:
+  # build libtiledb
+  - pkg-config
+  - zlib
   # build libtiledbvcf
   - cmake
   - cxx-compiler
