@@ -67,3 +67,19 @@ jobs:
           cd TileDB-VCF/apis/python
           pip3 install --user pyarrow==$PYARROW_VERSION wheel
           python3 setup.py install --user --libtiledbvcf=$GITHUB_WORKSPACE/installed/
+  issue:
+    permissions:
+      issues: write
+    runs-on: ubuntu-latest
+    needs: build
+    if: ( failure() || cancelled() ) && github.repository_owner == 'TileDB-Inc' && github.event_name == 'schedule'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Open Issue
+        uses: TileDB-Inc/github-actions/open-issue@main
+        with:
+          name: nightly build
+          label: nightly-failure
+          assignee: awenocur,gspowley,ihnorton,Shelnutt2
+        env:
+          TZ: "America/New_York"
