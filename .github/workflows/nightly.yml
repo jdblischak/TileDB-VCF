@@ -24,7 +24,6 @@ jobs:
         shell: bash --noprofile --norc -eo pipefail -x {0}
     env:
       MACOSX_DEPLOYMENT_TARGET: 10.15
-      PYARROW_VERSION: 9
     steps:
       - name: Clone TileDB
         uses: actions/checkout@v3
@@ -39,19 +38,18 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.9
+          python-version: "3.10"
       - name: Install Python dependencies
         run: |
           python -m pip install \
-            numpy \
+            numpy==1.21 \
             pandas \
-            pyarrow==$PYARROW_VERSION \
-            pybind11 \
-            rpdb \
-            setuptools \
-            setuptools_scm \
+            pyarrow==11.0.0 \
+            'pybind11>=2.5' \
+            'setuptools>=18.0' \
+            setuptools_scm==6.0.1 \
             setuptools_scm_git_archive \
-            wheel
+            'wheel>=0.30'
           python -m pip list
       - name: Setup macOS (to build htslib from source)
         if: runner.os == 'macOS'
