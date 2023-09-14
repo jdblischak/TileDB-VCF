@@ -39,26 +39,27 @@ jobs:
         run: |
           cmake -S TileDB -B build-libtiledb \
             -D CMAKE_BUILD_TYPE=Release \
-            -D CMAKE_INSTALL_PREFIX:PATH=/usr/local/ \
+            -D CMAKE_INSTALL_PREFIX:PATH=$GITHUB_WORKSPACE/install/ \
             -D TILEDB_WERROR=ON \
             -D TILEDB_SERIALIZATION=ON
           cmake --build build-libtiledb -j2 --config Release
-          sudo cmake --build build-libtiledb --config Release --target install-tiledb
+          cmake --build build-libtiledb --config Release --target install-tiledb
       - name: Build libtiledbvcf
         run: |
           cmake -S TileDB-VCF/libtiledbvcf -B build-libtiledbvcf \
             -D CMAKE_BUILD_TYPE=Release \
-            -D CMAKE_INSTALL_PREFIX:PATH=/usr/local/ \
+            -D CMAKE_INSTALL_PREFIX:PATH=$GITHUB_WORKSPACE/install/ \
             -D OVERRIDE_INSTALL_PREFIX=OFF \
             -D TILEDB_WERROR=OFF
           cmake --build build-libtiledbvcf -j2 --config Release
-          sudo cmake --build build-libtiledbvcf --config Release --target install-libtiledbvcf
-          tiledbvcf version
+          cmake --build build-libtiledbvcf --config Release --target install-libtiledbvcf
+          ./install/bin/tiledbvcf version
       - name: Build tiledbvcf-py
         run: |
           cd TileDB-VCF/apis/python
-          sudo pip3 install pyarrow==$PYARROW_VERSION
-          sudo python3 setup.py install --libtiledbvcf=/usr/local/
+          pip3 install --user pandas pyarrow==$PYARROW_VERSION
+          export LD_LIBRARY_PATH=$GITHUB_WORKSPACE/install/lib:$LD_LIBRARY_PATH
+          python3 setup.py install --user --libtiledbvcf=$GITHUB_WORKSPACE/install/
           python -c "import tiledbvcf; print(tiledbvcf.version)"
   issue:
     permissions:
