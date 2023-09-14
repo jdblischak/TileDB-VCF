@@ -53,6 +53,9 @@ jobs:
             setuptools_scm_git_archive \
             wheel
           python -m pip list
+      - name: Setup macOS (to build htslib from source)
+        if: runner.os == 'macOS'
+        run: brew install autoconf automake
       - name: Build libtiledb
         run: |
           cmake -S TileDB -B build-libtiledb \
