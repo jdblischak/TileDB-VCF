@@ -35,6 +35,16 @@ jobs:
         uses: actions/checkout@v3
         with:
           path: TileDB-VCF
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+      - name: Install Python dependencies
+        run: |
+          which python
+          python --version
+          python -m pip install pandas pyarrow==$PYARROW_VERSION pybind11
+          python -m pip list
       - name: Build libtiledb
         run: |
           cmake -S TileDB -B build-libtiledb \
@@ -57,9 +67,8 @@ jobs:
       - name: Build tiledbvcf-py
         run: |
           cd TileDB-VCF/apis/python
-          pip3 install --user pandas pyarrow==$PYARROW_VERSION
           export LD_LIBRARY_PATH=$GITHUB_WORKSPACE/install/lib:$LD_LIBRARY_PATH
-          python3 setup.py install --user --libtiledbvcf=$GITHUB_WORKSPACE/install/
+          python setup.py install --libtiledbvcf=$GITHUB_WORKSPACE/install/
           python -c "import tiledbvcf; print(tiledbvcf.version)"
   issue:
     permissions:
