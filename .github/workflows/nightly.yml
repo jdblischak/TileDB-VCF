@@ -17,12 +17,13 @@ jobs:
       fail-fast: false
       matrix:
         libtiledb_version: [release-2.16, dev]
-        os: [ubuntu-latest]
+        os: [macos-11, ubuntu-latest]
     defaults:
       run:
         # added -x to default GitHub Actions settings
         shell: bash --noprofile --norc -eo pipefail -x {0}
     env:
+      MACOSX_DEPLOYMENT_TARGET: 10.15
       PYARROW_VERSION: 9
     steps:
       - name: Clone TileDB
@@ -66,8 +67,19 @@ jobs:
           ./install/bin/tiledbvcf version
       - name: Build tiledbvcf-py
         run: |
+          OS=$(uname)
+          echo "OS: $OS"
+          if [[ $OS == Linux ]]
+          then
+            export LD_LIBRARY_PATH=$GITHUB_WORKSPACE/install/lib:${LD_LIBRARY_PATH-}
+            echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
+          elif [[ $OS == Darwin ]]
+          then
+            export DYLD_LIBRARY_PATH=$GITHUB_WORKSPACE/install/lib:${DYLD_LIBRARY_PATH-}
+            echo "DYLD_LIBRARY_PATH: $DYLD_LIBRARY_PATH"
+          fi
+
           cd TileDB-VCF/apis/python
-          export LD_LIBRARY_PATH=$GITHUB_WORKSPACE/install/lib:$LD_LIBRARY_PATH
           python setup.py install --libtiledbvcf=$GITHUB_WORKSPACE/install/
           python -c "import tiledbvcf; print(tiledbvcf.version)"
   issue:
