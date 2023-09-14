@@ -42,9 +42,16 @@ jobs:
           python-version: 3.9
       - name: Install Python dependencies
         run: |
-          which python
-          python --version
-          python -m pip install pandas pyarrow==$PYARROW_VERSION pybind11
+          python -m pip install \
+            numpy \
+            pandas \
+            pyarrow==$PYARROW_VERSION \
+            pybind11 \
+            rpdb \
+            setuptools \
+            setuptools_scm \
+            setuptools_scm_git_archive \
+            wheel
           python -m pip list
       - name: Build libtiledb
         run: |
