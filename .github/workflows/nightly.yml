@@ -47,7 +47,7 @@ jobs:
             pybind11
             python=3.9
             setuptools
-            setuptools_scm
+            setuptools_scm=6.0.1
             setuptools_scm_git_archive
             wheel
       - name: Setup macOS (to build htslib from source)
