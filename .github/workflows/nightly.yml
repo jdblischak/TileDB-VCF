@@ -44,9 +44,9 @@ jobs:
           create-args: >-
             numpy
             pandas
-            pyarrow=9
+            pyarrow=10
             pybind11
-            python=3.9
+            python=3.10
             setuptools
             setuptools_scm
             setuptools_scm_git_archive
