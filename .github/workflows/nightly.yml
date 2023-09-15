@@ -35,22 +35,21 @@ jobs:
         uses: actions/checkout@v3
         with:
           path: TileDB-VCF
-      - name: Setup Python
-        uses: actions/setup-python@v4
+      - name: Setup conda env
+        uses: mamba-org/setup-micromamba@v1
         with:
-          python-version: "3.9"
-      - name: Install Python dependencies
-        run: |
-          python -m pip install --prefer-binary \
-            numpy \
-            pandas \
-            pyarrow==9 \
-            pybind11 \
-            setuptools \
-            setuptools_scm \
-            setuptools_scm_git_archive \
+          environment-name: py4vcf
+          cache-environment: true
+          create-args: >-
+            numpy
+            pandas
+            pyarrow=9
+            pybind11
+            python=3.9
+            setuptools
+            setuptools_scm
+            setuptools_scm_git_archive
             wheel
-          python -m pip list
       - name: Setup macOS (to build htslib from source)
         if: runner.os == 'macOS'
         run: brew install autoconf automake
@@ -74,6 +73,8 @@ jobs:
           cmake --build build-libtiledbvcf --config Release --target install-libtiledbvcf
           ./install/bin/tiledbvcf version
       - name: Build tiledbvcf-py
+        # need -l to activate conda env
+        shell: bash -elo pipefail -x {0}
         run: |
           OS=$(uname)
           echo "OS: $OS"
