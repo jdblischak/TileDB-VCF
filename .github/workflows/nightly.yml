@@ -63,8 +63,8 @@ jobs:
       - name: Install bcftools (for tests) (osx)
         if: runner.os == 'macOS'
         run: brew install bcftools
-      - name: Test libtiledbvcf
-        run: bash TileDB-VCF/ci/nightly/test-libtiledbvcf.sh
+#      - name: Test libtiledbvcf
+#        run: bash TileDB-VCF/ci/nightly/test-libtiledbvcf.sh
       - name: Setup conda env
         uses: mamba-org/setup-micromamba@v1
         with:

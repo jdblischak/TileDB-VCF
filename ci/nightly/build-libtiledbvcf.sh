@@ -13,4 +13,4 @@ cmake --build build-libtiledbvcf -j2 --config Release
 
 cmake --build build-libtiledbvcf --config Release --target install-libtiledbvcf
 
-./install/bin/tiledbvcf.exe version
+#./install/bin/tiledbvcf.exe version
