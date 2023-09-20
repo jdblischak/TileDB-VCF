@@ -17,7 +17,7 @@ then
 fi
 
 cd TileDB-VCF/apis/python
-python setup.py install --libtiledbvcf=$GITHUB_WORKSPACE/install/
+python setup.py develop --libtiledbvcf=$GITHUB_WORKSPACE/install/
 python -c "import tiledbvcf; print(tiledbvcf.version)"
 
 pytest
