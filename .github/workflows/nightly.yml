@@ -40,8 +40,8 @@ jobs:
         with:
           path: TileDB-VCF
           fetch-depth: 0 # fetch everything for python setuptools_scm
-      - name: Build libtiledb
-        run: bash TileDB-VCF/ci/nightly/build-libtiledb.sh
+      # - name: Build libtiledb
+      #   run: bash TileDB-VCF/ci/nightly/build-libtiledb.sh
       - name: Setup macOS (to build htslib from source)
         if: runner.os == 'macOS'
         run: brew install autoconf automake

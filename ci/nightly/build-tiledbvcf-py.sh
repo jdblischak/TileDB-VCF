@@ -14,6 +14,11 @@ elif [[ $OS == Darwin ]]
 then
   export DYLD_LIBRARY_PATH=$GITHUB_WORKSPACE/install/lib:${DYLD_LIBRARY_PATH-}
   echo "DYLD_LIBRARY_PATH: $DYLD_LIBRARY_PATH"
+else
+then
+  # assume Windows, which searches PATH for shared libraries
+  export PATH=$GITHUB_WORKSPACE/install/lib:${PATH-}
+  echo "PATH: $PATH"
 fi
 
 cd TileDB-VCF/apis/python
