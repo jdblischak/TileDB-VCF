@@ -58,6 +58,10 @@ jobs:
         run: |
           otool -L install/lib/libtiledb.dylib
           otool -L install/lib/libtiledbvcf.dylib | grep tile
+      - name: Confirm linking (win)
+        if: runner.os == 'Windows'
+        shell: cmd
+        run: dumpbin /dependents %GITHUB_WORKSPACE%\install\bin\libtiledbvcf.dll
       - name: Install bcftools (for tests) (linux)
         if: runner.os == 'Linux'
         run: sudo apt install bcftools
