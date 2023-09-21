@@ -16,7 +16,7 @@ then
   echo "DYLD_LIBRARY_PATH: $DYLD_LIBRARY_PATH"
 else
   # assume Windows, which searches PATH for shared libraries
-  export PATH=$GITHUB_WORKSPACE/install/bin:${PATH-}
+  export PATH=/d/a/TileDB-VCF/TileDB-VCF/install/bin:${PATH-}
   echo "PATH: $PATH"
 fi
 
