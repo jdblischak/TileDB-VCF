@@ -12,5 +12,3 @@ cmake -S TileDB-VCF/libtiledbvcf -B build-libtiledbvcf \
 cmake --build build-libtiledbvcf -j2 --config Release
 
 cmake --build build-libtiledbvcf --config Release --target install-libtiledbvcf
-
-$GITHUB_WORKSPACE/install/bin/tiledbvcf version

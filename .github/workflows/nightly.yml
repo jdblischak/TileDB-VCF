@@ -51,17 +51,23 @@ jobs:
       - name: Confirm linking (linux)
         if: runner.os == 'Linux'
         run: |
+          ./install/bin/tiledbvcf version
+          ldd install/lib/libtiledbvcf.so | grep libtiledb
+          ldd install/lib/libtiledbvcf.so
           ldd install/lib/libtiledb.so
-          ldd install/lib/libtiledbvcf.so | grep tile
       - name: Confirm linking (osx)
         if: runner.os == 'macOS'
         run: |
+          ./install/bin/tiledbvcf version
+          otool -L install/lib/libtiledbvcf.dylib | grep libtiledb
+          otool -L install/lib/libtiledbvcf.dylib
           otool -L install/lib/libtiledb.dylib
-          otool -L install/lib/libtiledbvcf.dylib | grep tile
       - name: Confirm linking (win)
         if: runner.os == 'Windows'
         shell: cmd
-        run: dumpbin /dependents %GITHUB_WORKSPACE%\install\bin\libtiledbvcf.dll
+        run: |
+          %GITHUB_WORKSPACE%\install\bin\tiledbvcf version
+          dumpbin /dependents %GITHUB_WORKSPACE%\install\bin\tiledbvcf.dll
       - name: Install bcftools (for tests) (linux)
         if: runner.os == 'Linux'
         run: sudo apt install bcftools
