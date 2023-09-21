@@ -62,12 +62,16 @@ jobs:
           otool -L install/lib/libtiledbvcf.dylib | grep libtiledb
           otool -L install/lib/libtiledbvcf.dylib
           otool -L install/lib/libtiledb.dylib
+      - uses: ilammy/msvc-dev-cmd@v1
       - name: Confirm linking (win)
         if: runner.os == 'Windows'
         shell: cmd
         run: |
           %GITHUB_WORKSPACE%\install\bin\tiledbvcf version
           dumpbin /dependents %GITHUB_WORKSPACE%\install\bin\tiledbvcf.dll
+          dumpbin /dependents %GITHUB_WORKSPACE%\install\bin\tiledbvcf.exe
+          dumpbin /imports %GITHUB_WORKSPACE%\install\bin\tiledbvcf.dll | findstr /i dll
+          dumpbin /imports %GITHUB_WORKSPACE%\install\bin\tiledbvcf.dll
       - name: Install bcftools (for tests) (linux)
         if: runner.os == 'Linux'
         run: sudo apt install bcftools
