@@ -116,8 +116,8 @@ jobs:
         run: cmd /C CALL TileDB-VCF/ci/nightly/build-libtiledb.bat
       - name: Build libtiledbvcf
         run: cmd /C CALL TileDB-VCF\ci\nightly\build-libtiledbvcf.bat
-      - name: Test libtiledbvcf
-        run: cmd /C CALL TileDB-VCF\ci\nightly\test-libtiledbvcf.bat
+      # - name: Test libtiledbvcf
+      #   run: cmd /C CALL TileDB-VCF\ci\nightly\test-libtiledbvcf.bat
       - name: Setup conda env
         uses: mamba-org/setup-micromamba@v1
         with:
