@@ -112,8 +112,8 @@ jobs:
         with:
           path: TileDB-VCF
           fetch-depth: 0 # fetch everything for python setuptools_scm
-      - name: Build libtiledb
-        run: cmd /C CALL TileDB-VCF/ci/nightly/build-libtiledb.bat
+      # - name: Build libtiledb
+      #   run: cmd /C CALL TileDB-VCF/ci/nightly/build-libtiledb.bat
       - name: Build libtiledbvcf
         run: cmd /C CALL TileDB-VCF\ci\nightly\build-libtiledbvcf.bat
       # - name: Test libtiledbvcf
