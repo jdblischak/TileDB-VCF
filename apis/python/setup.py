@@ -251,8 +251,8 @@ class BuildExtCmd(build_ext):
             ext.include_dirs.append(pyarrow.get_include())
 
             # don't overlink the arrow core library
-            if (sys.platform != "win32") and ("arrow" in ext.libraries):
-                ext.libraries.remove("arrow")
+            # if (sys.platform != "win32") and ("arrow" in ext.libraries):
+            #     ext.libraries.remove("arrow")
             ext.library_dirs.extend(pyarrow.get_library_dirs())
 
         find_or_build_libtiledbvcf(self)
