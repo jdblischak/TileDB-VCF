@@ -21,6 +21,7 @@ export LIBTILEDBVCF_PATH=$GITHUB_WORKSPACE/install/
 
 cd TileDB-VCF/apis/python
 python -m pip install .
-python -c "import tiledbvcf; print(tiledbvcf.version)"
+ldd $pythonLocation/lib/python*/site-packages/tiledbsoma-*-py*-linux-x86_64.egg/tiledbsoma/pytiledbsoma.cpython-*-x86_64-linux-gnu.so
 
+python -c "import tiledbvcf; print(tiledbvcf.version)"
 pytest
