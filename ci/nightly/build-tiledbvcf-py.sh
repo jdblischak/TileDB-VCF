@@ -28,7 +28,7 @@ then
   ldd $pythonLocation/lib/python*/site-packages/tiledbvcf/libtiledbvcf.cpython-*-x86_64-linux-gnu.so
 elif [[ $OS == Darwin ]]
 then
-  otool -L $pythonLocation/lib/python*/site-packages/tiledbvcf/libtiledbvcf.cpython-*-x86_64*.dylib
+  otool -L $pythonLocation/lib/python*/site-packages/tiledbvcf/libtiledbvcf.cpython-*.so
 fi
 
 python -c "import tiledbvcf; print(tiledbvcf.version)"
