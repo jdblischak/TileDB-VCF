@@ -21,7 +21,15 @@ export LIBTILEDBVCF_PATH=$GITHUB_WORKSPACE/install/
 
 cd TileDB-VCF/apis/python
 python -m pip install .
-# ldd $pythonLocation/lib/python*/site-packages/tiledbvcf-*-py*-linux-x86_64.egg/tiledbvcf/libtiledbvcf.cpython-*-x86_64-linux-gnu.so
+ls -R $pythonLocation/lib/python*/site-packages/tiledbvcf
+
+if [[ $OS == Linux ]]
+then
+  ldd $pythonLocation/lib/python*/site-packages/tiledbvcf/libtiledbvcf.cpython-*-x86_64-linux-gnu.so
+elif [[ $OS == Darwin ]]
+then
+  otool -L $pythonLocation/lib/python*/site-packages/tiledbvcf/libtiledbvcf.cpython-*-x86_64*.dylib
+fi
 
 python -c "import tiledbvcf; print(tiledbvcf.version)"
 pytest
