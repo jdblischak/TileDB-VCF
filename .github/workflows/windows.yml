@@ -23,12 +23,26 @@ jobs:
     runs-on: windows-2022
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # fetch everything for python setuptools_scm
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
       - name: Install
-        run: make install
+        shell: bash
+        run: |
+          ls
+          pwd
+          mkdir -p libtiledbvcf/build
+          cd libtiledbvcf/build
+          cmake .. -DCMAKE_BUILD_TYPE=Release
+          pwd
+          ls
+          cat Makefile
+          make -j
+          make install-libtiledbvcf
+          pip install -v apis/python[test,dev]
       - name: tiledbvcf-py version
         run: python -c "import tiledbvcf; print(tiledbvcf.version)"
       - name: Test
