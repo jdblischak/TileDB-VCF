@@ -28,9 +28,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install
-        run: |
-          cd apis\python
-          python -m pip install -v .[test]
+        run: make install
       - name: tiledbvcf-py version
         run: python -c "import tiledbvcf; print(tiledbvcf.version)"
       - name: Test
