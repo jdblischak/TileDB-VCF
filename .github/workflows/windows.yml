@@ -31,11 +31,13 @@ jobs:
           python-version: "3.11"
       - name: Install libtiledbvcf
         run: |
-          cmake -S libtiledbvcf -B dist
-          cmake --build dist -j2
-          cmake --build dist --target install-libtiledbvcf
+          cmake -S libtiledbvcf -B apis\python\dist_links\libtiledbvcf\build
+          cmake --build apis\python\dist_links\libtiledbvcf\build -j2
+          cmake --buildapis\python\dist_links\libtiledbvcf\build --target install-libtiledbvcf
       - name: Install tiledbvcf-py
-        run: python -m pip install -v apis/python[test,dev]
+        run: |
+          cd apis\python
+          python -m pip install -v .[test,dev]
       - name: tiledbvcf-py version
         run: python -c "import tiledbvcf; print(tiledbvcf.version)"
       - name: Test
