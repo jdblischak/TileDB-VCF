@@ -33,7 +33,7 @@ jobs:
         run: |
           cmake -S libtiledbvcf -B apis\python\dist_links\libtiledbvcf\build
           cmake --build apis\python\dist_links\libtiledbvcf\build -j2
-          cmake --buildapis\python\dist_links\libtiledbvcf\build --target install-libtiledbvcf
+          cmake --build apis\python\dist_links\libtiledbvcf\build --target install-libtiledbvcf
       - name: Install tiledbvcf-py
         run: |
           cd apis\python
