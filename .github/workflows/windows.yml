@@ -30,10 +30,13 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install libtiledbvcf
+        shell: bash
         run: |
-          cmake -S libtiledbvcf -B apis\python\dist_links\libtiledbvcf\build
-          cmake --build apis\python\dist_links\libtiledbvcf\build -j2
-          cmake --build apis\python\dist_links\libtiledbvcf\build --target install-libtiledbvcf
+          mkdir -p apis\python\dist_links\libtiledbvcf\build
+          cd apis\python\dist_links\libtiledbvcf\build
+          cmake ..
+          cmake --build . -j2
+          cmake --build . --target install-libtiledbvcf
       - name: Install tiledbvcf-py
         run: |
           cd apis\python
