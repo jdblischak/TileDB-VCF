@@ -25,23 +25,17 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # fetch everything for python setuptools_scm
+      - name: Build and install libtiledbvcf
+        run: |
+          cmake -S libtiledbvcf -B libtiledbvcf\build
+          cmake --build libtiledbvcf\build -j2 --target install-libtiledbvcf
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Install libtiledbvcf
-        run: |
-          cmake -S libtiledbvcf -B libtiledbvcf\build
-          cmake --build libtiledbvcf\build -j2
-          cmake --build libtiledbvcf\build --target install-libtiledbvcf
-      - name: Copy externals to where the Python CMake expects it
-        shell: bash
-        run: |
-          rm apis/python/dist_links/libtiledbvcf
-          mkdir -p apis/python/dist_links/libtiledbvcf
-          cp -R libtiledbvcf/build apis/python/dist_links/libtiledbvcf
       - name: Install tiledbvcf-py
         run: |
+          set TileDB_DIR=.\libtiledbvcf\build\externals\install\lib\cmake\TileDB\
           cd apis\python
           python -m pip install -v .[test,dev]
       - name: tiledbvcf-py version
