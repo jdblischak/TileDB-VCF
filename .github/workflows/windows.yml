@@ -37,9 +37,9 @@ jobs:
       - name: Copy externals to where the Python CMake expects it
         shell: bash
         run: |
-          rm apis\python\dist_links\libtiledbvcf
-          mkdir -p apis\python\dist_links\libtiledbvcf
-          cp -R libtiledbvcf/build apis\python\dist_links\libtiledbvcf
+          rm apis/python/dist_links/libtiledbvcf
+          mkdir -p apis/python/dist_links/libtiledbvcf
+          cp -R libtiledbvcf/build apis/python/dist_links/libtiledbvcf
       - name: Install tiledbvcf-py
         run: |
           cd apis\python
