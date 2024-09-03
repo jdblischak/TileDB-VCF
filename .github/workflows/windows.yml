@@ -28,6 +28,7 @@ jobs:
       - name: Build and install libtiledbvcf
         run: |
           cmake -S libtiledbvcf -B libtiledbvcf\build
+          cmake --build libtiledbvcf\build -j2
           cmake --build libtiledbvcf\build -j2 --target install-libtiledbvcf
       - name: Set up Python
         uses: actions/setup-python@v5
