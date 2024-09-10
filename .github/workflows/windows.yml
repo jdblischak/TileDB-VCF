@@ -39,7 +39,7 @@ jobs:
           set TileDB_DIR=.\libtiledbvcf\build\externals\install\lib\cmake\TileDB\
           cd apis\python
           python -m pip install -v -e .[test,dev]
-      - name: tiledbvcf-py version
-        run: python -c "import tiledbvcf; print(tiledbvcf.version)"
+#      - name: tiledbvcf-py version
+#        run: python -c "import tiledbvcf; print(tiledbvcf.version)"
       - name: Test
         run: pytest apis\python\tests
